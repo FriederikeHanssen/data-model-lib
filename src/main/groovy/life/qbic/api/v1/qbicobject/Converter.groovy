@@ -1,8 +1,4 @@
-package life.qbic.api.v1.conversion
-
-import life.qbic.api.v1.qbicobject.QbicSample
-
-
+package life.qbic.api.v1.qbicobject
 /**
  * Converts openBIS objects to QBiC objects.
  *
@@ -16,7 +12,8 @@ class Converter {
      * Links the correct adapter to a given openBIS object.
      */
     private final static Map ADAPTER_LEXICON = [
-            ("ch.ethz.sis.openbis.generic.asapi.v3.dto.sample.Sample".replace('.', '')): {object -> new QbicSample(object)}
+            ("ch.ethz.sis.openbis.generic.asapi.v3.dto.sample.Sample".replace('.', '')): {object ->
+                def s = new QbicSampleV1(object)}
     ]
 
     /**

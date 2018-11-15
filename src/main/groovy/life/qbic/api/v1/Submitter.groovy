@@ -1,6 +1,6 @@
 package life.qbic.api.v1
 
-import life.qbic.api.v1.conversion.Converter
+import life.qbic.api.v1.qbicobject.Converter
 
 /**
  * Provides a submitter interface to send queries to the openBIS

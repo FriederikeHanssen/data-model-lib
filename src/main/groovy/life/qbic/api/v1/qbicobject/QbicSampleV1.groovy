@@ -5,22 +5,27 @@ import ch.ethz.sis.openbis.generic.asapi.v3.dto.sample.Sample
 import life.qbic.api.v1.openbis.adapter.AttachmentAdapter
 import life.qbic.api.v1.openbis.adapter.SampleAdapter
 
-class QbicSample implements SampleAdapter{
+/**
+ *  Converts openbis V3 Sample objects to QbicSampleV1 objects
+ *
+ *  @author: Sven Fillinger, Friederike Hanssen QBiC
+ */
+protected class QbicSampleV1 implements SampleAdapter{
 
     private final Sample openbisSample
 
-    QbicSample(openbisSample){
+    QbicSampleV1(openbisSample){
         this.openbisSample = openbisSample
     }
 
     @Override
     List<AttachmentAdapter> getAttachments() {
-        return null
+        return this.openbisSample.attachments.collect{ new QbicAttachment(it) }
     }
 
     @Override
     List<SampleAdapter> getChildren() {
-        return this.openbisSample.children.collect { new QbicSample(it) }
+        return this.openbisSample.children.collect { new QbicSampleV1(it) }
     }
 
     @Override
@@ -29,13 +34,13 @@ class QbicSample implements SampleAdapter{
     }
 
     @Override
-    List<QbicSample> getComponents() {
-        return null
+    List<QbicSampleV1> getComponents() {
+        return this.openbisSample.components.collect{ new QbicSampleV1(it) }
     }
 
     @Override
-    QbicSample getContainer() {
-        return null
+    QbicSampleV1 getContainer() {
+        return new QbicSampleV1(this.openbisSample.container)
     }
 
     @Override

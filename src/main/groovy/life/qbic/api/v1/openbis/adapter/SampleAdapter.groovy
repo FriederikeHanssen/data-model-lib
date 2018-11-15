@@ -1,10 +1,10 @@
 package life.qbic.api.v1.openbis.adapter
 
 import life.qbic.api.v1.qbicobject.QbicAttachment
-import life.qbic.api.v1.qbicobject.QbicSample
+import life.qbic.api.v1.qbicobject.QbicSampleV1
 
 /**
- * Provides an access interface for `QbicSample` objects.
+ * Provides an access interface for `QbicSampleV1` objects.
  *
  * @author: Sven Fillinger, QBiC
  */
@@ -12,13 +12,13 @@ interface SampleAdapter {
 
     List<QbicAttachment> getAttachments()
 
-    List<QbicSample> getChildren()
+    List<QbicSampleV1> getChildren()
 
     String getCode()
 
-    List<QbicSample> getComponents()
+    List<QbicSampleV1> getComponents()
 
-    QbicSample getContainer()
+    QbicSampleV1 getContainer()
 
     def getDataSets()
 
