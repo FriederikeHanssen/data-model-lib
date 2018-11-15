@@ -10,17 +10,17 @@ import life.qbic.api.v1.openbis.adapter.SampleAdapter
  *
  *  @author: Sven Fillinger, Friederike Hanssen QBiC
  */
-protected class QbicSampleV1 implements SampleAdapter{
+protected class QbicSampleV1 implements SampleAdapter {
 
     private final Sample openbisSample
 
-    QbicSampleV1(openbisSample){
+    QbicSampleV1(openbisSample) {
         this.openbisSample = openbisSample
     }
 
     @Override
     List<AttachmentAdapter> getAttachments() {
-        return this.openbisSample.attachments.collect{ new QbicAttachment(it) }
+        return this.openbisSample.attachments.collect { new QbicAttachmentV1(it) }
     }
 
     @Override
@@ -35,7 +35,7 @@ protected class QbicSampleV1 implements SampleAdapter{
 
     @Override
     List<QbicSampleV1> getComponents() {
-        return this.openbisSample.components.collect{ new QbicSampleV1(it) }
+        return this.openbisSample.components.collect { new QbicSampleV1(it) }
     }
 
     @Override
@@ -44,102 +44,105 @@ protected class QbicSampleV1 implements SampleAdapter{
     }
 
     @Override
-    def getDataSets() {
-        return null
+    List<QbicDataSetV1> getDataSets() {
+        return this.openbisSample.dataSets.collect { new QbicDataSetV1(it) }
     }
 
     @Override
-    def getExperiment() {
-        return null
+    QbicExperimentV1 getExperiment() {
+        return new QbicExperimentV1(this.openbisSample.experiment)
     }
 
     @Override
-    def getFetchOptions() {
-        return null
+    QbicSampleFetchOptionsV1 getFetchOptions() {
+        return new QbicSampleFetchOptionsV1(this.openbisSample.fetchOptions)
     }
 
     @Override
-    def getHistory() {
-        return null
+    List<QbicHistoryEntryV1> getHistory() {
+        return this.openbisSample.history.collect { new QbicHistoryEntryV1(it) }
     }
 
     @Override
-    def getIdentifier() {
-        return null
+    QbicSampleIdentifierV1 getIdentifier() {
+        return new QbicSampleIdentifierV1(this.openbisSample.identifier)
     }
 
     @Override
-    def getMaterialProperties() {
-        return null
+    Map<String, QbicMaterialV1> getMaterialProperties() {
+        //TODO: somehow Map<?,?> is inferred, not Map<String, QbicMaterialV1>
+        return this.openbisSample.materialProperties.collectEntries { [it.key, new QbicMaterialV1(it.value)] }
     }
 
     @Override
-    def getMaterialProperty(Object propertyName) {
-        return null
+    QbicMaterialV1 getMaterialProperty(Object propertyName) {
+        //TODO check conversion to string? Should null be returned?
+        if (propertyName instanceof String)
+            return new QbicMaterialV1(this.openbisSample.getMaterialProperty((String) propertyName))
+        else
+            null
     }
 
     @Override
-    def getModificationDate() {
-        return null
+    QbicDateV1 getModificationDate() {
+        return new QbicDateV1(this.openbisSample.modificationDate)
     }
 
     @Override
-    def getModifier() {
-        return null
+    QbicPersonV1 getModifier() {
+        return new QbicPersonV1(this.openbisSample.modifier)
     }
 
     @Override
-    def getParents() {
-        return null
+    List<QbicSampleV1> getParents() {
+        return this.openbisSample.parents.collect { new QbicSampleV1(it) }
     }
 
     @Override
-    def getPermId() {
-        return null
+    QbicPermIdV1 getPermId() {
+        return new QbicPermIdV1(this.openbisSample.permId)
     }
 
     @Override
-    def getProject() {
-        return null
+    QbicProjectV1 getProject() {
+        return new QbicProjectV1(this.openbisSample.project)
     }
 
     @Override
-    def getProperties() {
-        return null
+    Map<String, String> getProperties() {
+        return this.openbisSample.properties
     }
 
     @Override
-    def getProperty(Object propertyName) {
-        return null
+    String getProperty(Object propertyName) {
+        if (propertyName instanceof String)
+            return this.openbisSample.getProperty(propertyName)
+        else
+            ""
     }
 
     @Override
-    def getRegistrationDate() {
-        return null
+    QbicDateV1 getRegistrationDate() {
+        return new QbicDateV1(this.openbisSample.registrationDate)
     }
 
     @Override
-    def getRegistrator() {
-        return null
+    QbicPersonV1 getRegistrator() {
+        return new QbicPersonV1(this.openbisSample.getRegistrator())
     }
 
     @Override
-    def getSpace() {
-        return null
+    QbicSpaceV1 getSpace() {
+        return new QbicSpaceV1(this.openbisSample.getSpace())
     }
 
     @Override
-    def getTags() {
-        return null
+    Set<QbicTagV1> getTags() {
+        return this.openbisSample.tags.collect { new QbicTagV1(it) }
     }
 
     @Override
-    def getType() {
-        return null
-    }
-
-    @Override
-    def setChildren(List<SampleAdapter> children) {
-        return null
+    QbicSampleTypeV1 getType() {
+        return new QbicSampleTypeV1(this.openbisSample.type)
     }
 }

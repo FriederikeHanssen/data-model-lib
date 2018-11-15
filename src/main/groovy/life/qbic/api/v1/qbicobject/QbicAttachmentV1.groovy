@@ -2,7 +2,7 @@ package life.qbic.api.v1.qbicobject
 
 import life.qbic.api.v1.openbis.adapter.AttachmentAdapter
 
-class QbicAttachment implements AttachmentAdapter{
+class QbicAttachmentV1 implements AttachmentAdapter{
 
 
     @Override
@@ -36,7 +36,7 @@ class QbicAttachment implements AttachmentAdapter{
     }
 
     @Override
-    QbicAttachment getPreviousVersion() {
+    QbicAttachmentV1 getPreviousVersion() {
         return null
     }
 
@@ -46,7 +46,7 @@ class QbicAttachment implements AttachmentAdapter{
     }
 
     @Override
-    QbicPerson getRegistrator() {
+    QbicPersonV1 getRegistrator() {
         return null
     }
 
