@@ -1,4 +1,6 @@
 package life.qbic.api.v1.qbicobject
 
-class QbicDataSetV1 {
+import life.qbic.api.v1.openbis.adapter.DataSetAdapter
+
+class QbicDataSetV1  implements DataSetAdapter{
 }

@@ -1,62 +1,70 @@
 package life.qbic.api.v1.qbicobject
 
+import ch.ethz.sis.openbis.generic.asapi.v3.dto.attachment.Attachment
 import life.qbic.api.v1.openbis.adapter.AttachmentAdapter
+import life.qbic.api.v1.openbis.adapter.AttachmentFetchOptionsAdapter
+import life.qbic.api.v1.openbis.adapter.PersonAdapter
 
-class QbicAttachmentV1 implements AttachmentAdapter{
+protected class QbicAttachmentV1 implements AttachmentAdapter{
 
+    private final Attachment openbisAttachment
+
+    QbicAttachmentV1(openbisAttachment){
+        this.openbisAttachment = openbisAttachment
+    }
 
     @Override
     byte[] getContent() {
-        return new byte[0]
+        return this.openbisAttachment.getContent()
     }
 
     @Override
     String getDescription() {
-        return null
+        return this.openbisAttachment.getDescription()
     }
 
     @Override
-    QbicAttachmentFetchOptions getFetchOptions() {
-        return null
+    AttachmentFetchOptionsAdapter getFetchOptions() {
+        return new QbicAttachmentFetchOptionsV1(this.openbisAttachment.getFetchOptions())
     }
 
     @Override
     String getFileName() {
-        return null
+        return this.openbisAttachment.getFileName()
     }
 
     @Override
     String getLatestVersionPermlink() {
-        return null
+        return this.openbisAttachment.getLatestVersionPermlink()
     }
 
     @Override
     String getPermlink() {
-        return null
+        return this.openbisAttachment.getPermlink()
     }
 
     @Override
-    QbicAttachmentV1 getPreviousVersion() {
-        return null
+    AttachmentAdapter getPreviousVersion() {
+        return new QbicAttachmentV1(this.openbisAttachment.getPreviousVersion())
     }
 
     @Override
     Date getRegistrationDate() {
-        return null
+        return this.openbisAttachment.getRegistrationDate()
     }
 
     @Override
-    QbicPersonV1 getRegistrator() {
-        return null
+    PersonAdapter getRegistrator() {
+        return new QbicPersonV1(this.openbisAttachment.getRegistrator())
     }
 
     @Override
     String getTitle() {
-        return null
+        return this.openbisAttachment.getTitle()
     }
 
     @Override
     Integer getVersion() {
-        return null
+        return this.openbisAttachment.getVersion()
     }
 }

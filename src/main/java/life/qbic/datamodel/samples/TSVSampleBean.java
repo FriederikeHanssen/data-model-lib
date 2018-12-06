@@ -55,8 +55,8 @@ public class TSVSampleBean implements ISampleBean {
     // else {
     // if (parents.contains(",")) {
     // ArrayList<String> res = new ArrayList<String>();
-    // for (String p : Arrays.asList(getParents().split(","))) {
-    // res.add(p.trim());
+    // for (String SpaceAdapter : Arrays.asList(getParents().split(","))) {
+    // res.add(SpaceAdapter.trim());
     // }
     // return res;
     // } else

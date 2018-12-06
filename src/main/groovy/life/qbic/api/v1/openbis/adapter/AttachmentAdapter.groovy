@@ -1,7 +1,7 @@
 package life.qbic.api.v1.openbis.adapter
 
+import life.qbic.api.v1.qbicobject.QbicAttachmentFetchOptionsV1
 import life.qbic.api.v1.qbicobject.QbicAttachmentV1
-import life.qbic.api.v1.qbicobject.QbicAttachmentFetchOptions
 import life.qbic.api.v1.qbicobject.QbicPersonV1
 
 interface AttachmentAdapter {
@@ -10,7 +10,7 @@ interface AttachmentAdapter {
 
     String getDescription()
 
-    QbicAttachmentFetchOptions getFetchOptions()
+    AttachmentFetchOptionsAdapter getFetchOptions()
 
     String getFileName()
 
@@ -18,11 +18,11 @@ interface AttachmentAdapter {
 
     String getPermlink()
 
-    QbicAttachmentV1 getPreviousVersion()
+    AttachmentAdapter getPreviousVersion()
 
     Date getRegistrationDate()
 
-    QbicPersonV1 getRegistrator()
+    PersonAdapter getRegistrator()
 
     String getTitle()
 

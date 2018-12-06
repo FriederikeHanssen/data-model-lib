@@ -1,14 +1,12 @@
 package life.qbic.api.v1.qbicobject
 
-
 import ch.ethz.sis.openbis.generic.asapi.v3.dto.sample.Sample
-import life.qbic.api.v1.openbis.adapter.AttachmentAdapter
-import life.qbic.api.v1.openbis.adapter.SampleAdapter
+import life.qbic.api.v1.openbis.adapter.*
 
 /**
  *  Converts openbis V3 Sample objects to QbicSampleV1 objects
- *
- *  @author: Sven Fillinger, Friederike Hanssen QBiC
+ * Currently, all getter methods for openbis samples are implemented
+ * @author: Sven Fillinger, Friederike Hanssen QBiC
  */
 protected class QbicSampleV1 implements SampleAdapter {
 
@@ -34,48 +32,48 @@ protected class QbicSampleV1 implements SampleAdapter {
     }
 
     @Override
-    List<QbicSampleV1> getComponents() {
+    List<SampleAdapter> getComponents() {
         return this.openbisSample.components.collect { new QbicSampleV1(it) }
     }
 
     @Override
-    QbicSampleV1 getContainer() {
+    SampleAdapter getContainer() {
         return new QbicSampleV1(this.openbisSample.container)
     }
 
     @Override
-    List<QbicDataSetV1> getDataSets() {
+    List<DataSetAdapter> getDataSets() {
         return this.openbisSample.dataSets.collect { new QbicDataSetV1(it) }
     }
 
     @Override
-    QbicExperimentV1 getExperiment() {
+    ExperimentAdapter getExperiment() {
         return new QbicExperimentV1(this.openbisSample.experiment)
     }
 
     @Override
-    QbicSampleFetchOptionsV1 getFetchOptions() {
+    SampleFetchOptionsAdapter getFetchOptions() {
         return new QbicSampleFetchOptionsV1(this.openbisSample.fetchOptions)
     }
 
     @Override
-    List<QbicHistoryEntryV1> getHistory() {
+    List<HistoryEntryAdapter> getHistory() {
         return this.openbisSample.history.collect { new QbicHistoryEntryV1(it) }
     }
 
     @Override
-    QbicSampleIdentifierV1 getIdentifier() {
+    SampleIdentifierAdapter getIdentifier() {
         return new QbicSampleIdentifierV1(this.openbisSample.identifier)
     }
 
     @Override
-    Map<String, QbicMaterialV1> getMaterialProperties() {
+    Map<String, MaterialAdapter> getMaterialProperties() {
         //TODO: somehow Map<?,?> is inferred, not Map<String, QbicMaterialV1>
         return this.openbisSample.materialProperties.collectEntries { [it.key, new QbicMaterialV1(it.value)] }
     }
 
     @Override
-    QbicMaterialV1 getMaterialProperty(Object propertyName) {
+    MaterialAdapter getMaterialProperty(Object propertyName) {
         //TODO check conversion to string? Should null be returned?
         if (propertyName instanceof String)
             return new QbicMaterialV1(this.openbisSample.getMaterialProperty((String) propertyName))
@@ -84,27 +82,27 @@ protected class QbicSampleV1 implements SampleAdapter {
     }
 
     @Override
-    QbicDateV1 getModificationDate() {
-        return new QbicDateV1(this.openbisSample.modificationDate)
+    Date getModificationDate() {
+        return this.openbisSample.modificationDate
     }
 
     @Override
-    QbicPersonV1 getModifier() {
+    PersonAdapter getModifier() {
         return new QbicPersonV1(this.openbisSample.modifier)
     }
 
     @Override
-    List<QbicSampleV1> getParents() {
+    List<SampleAdapter> getParents() {
         return this.openbisSample.parents.collect { new QbicSampleV1(it) }
     }
 
     @Override
-    QbicPermIdV1 getPermId() {
-        return new QbicPermIdV1(this.openbisSample.permId)
+    SamplePermIdAdapter getPermId() {
+        return new QbicSamplePermIdV1(this.openbisSample.permId)
     }
 
     @Override
-    QbicProjectV1 getProject() {
+    ProjectAdapter getProject() {
         return new QbicProjectV1(this.openbisSample.project)
     }
 
@@ -115,6 +113,7 @@ protected class QbicSampleV1 implements SampleAdapter {
 
     @Override
     String getProperty(Object propertyName) {
+        //TODO check conversion to string? Should null be returned?
         if (propertyName instanceof String)
             return this.openbisSample.getProperty(propertyName)
         else
@@ -122,27 +121,27 @@ protected class QbicSampleV1 implements SampleAdapter {
     }
 
     @Override
-    QbicDateV1 getRegistrationDate() {
-        return new QbicDateV1(this.openbisSample.registrationDate)
+    Date getRegistrationDate() {
+        return this.openbisSample.registrationDate
     }
 
     @Override
-    QbicPersonV1 getRegistrator() {
+    PersonAdapter getRegistrator() {
         return new QbicPersonV1(this.openbisSample.getRegistrator())
     }
 
     @Override
-    QbicSpaceV1 getSpace() {
+    SpaceAdapter getSpace() {
         return new QbicSpaceV1(this.openbisSample.getSpace())
     }
 
     @Override
-    Set<QbicTagV1> getTags() {
+    Set<TagAdapter> getTags() {
         return this.openbisSample.tags.collect { new QbicTagV1(it) }
     }
 
     @Override
-    QbicSampleTypeV1 getType() {
+    SampleTypeAdapter getType() {
         return new QbicSampleTypeV1(this.openbisSample.type)
     }
 }

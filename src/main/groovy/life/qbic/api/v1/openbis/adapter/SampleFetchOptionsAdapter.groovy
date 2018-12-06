@@ -1,14 +1,6 @@
 package life.qbic.api.v1.openbis.adapter
 
-/**
- * Provides an access interface for `QbicSampleVX` objects.
- * http://svnsis.ethz.ch/doc/openbis/18.06.2/javadoc/ serves as guide for necessary methods
- * Currently focusing on getters alone
- * @author: Sven Fillinger, QBiC
- *
- * TODO: add setters
- */
-interface SampleAdapter {
+interface SampleFetchOptionsAdapter {
 
     List<AttachmentAdapter> getAttachments()
 
@@ -20,7 +12,7 @@ interface SampleAdapter {
 
     SampleAdapter getContainer()
 
-    List<DataSetAdapter>  getDataSets()
+    List<DataSetAdapter> getDataSets()
 
     ExperimentAdapter getExperiment()
 
@@ -32,7 +24,7 @@ interface SampleAdapter {
 
     Map<String, MaterialAdapter> getMaterialProperties()
 
-    MaterialAdapter getMaterialProperty(propertyName)
+    MaterialAdapter getMaterialProperty(String propertyName)
 
     Date getModificationDate()
 
@@ -46,7 +38,7 @@ interface SampleAdapter {
 
     Map<String, String> getProperties()
 
-    String getProperty(propertyName)
+    String getProperty(String propertyName)
 
     Date getRegistrationDate()
 
@@ -57,5 +49,4 @@ interface SampleAdapter {
     Set<TagAdapter> getTags()
 
     SampleTypeAdapter getType()
-
 }
